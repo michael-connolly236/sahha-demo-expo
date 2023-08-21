@@ -1,6 +1,9 @@
+/* eslint-disable import/no-named-as-default-member */
+import * as React from "react";
+
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Sahha, { SahhaEnvironment, SahhaSensorStatus } from "sahha-react-native";
 
 export default function App() {
@@ -78,6 +81,26 @@ export default function App() {
         title={'Open App Settings'}
         onPress={() => {
           Sahha.openAppSettings();
+        }
+      }
+      />
+      <Button
+        title={'Test Auth'}
+        onPress={() => {
+          console.log("About to call Sahha Authenticate");
+          Sahha.authenticate(
+            "<<APP_ID>>",
+            "<<APP_SECRET>>",
+            "afafafafafaf4252562552652762",
+            (error: string, success: boolean) => {
+              console.log("Authenticating: ", success);
+              if (error) {
+                console.log(`Error: ${error}`);
+              } else {
+                console.log(`Success: ${success}`);
+              }
+            }
+          );
         }
       }
       />
